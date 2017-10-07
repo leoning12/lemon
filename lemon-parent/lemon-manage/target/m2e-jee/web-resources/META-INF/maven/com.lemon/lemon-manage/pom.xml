@@ -12,7 +12,19 @@
 	<description />
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
 		<spring.version>4.0.2.RELEASE</spring.version>
+		<hibernate.version>4.3.0.Final</hibernate.version>
+		<hibernate-common-annotations.version>4.0.4.Final</hibernate-common-annotations.version>
+		<!-- MySQL -->
+		<mysql-connector-java>5.1.38</mysql-connector-java>
+
+		<!-- 工具包 -->
+		<log4j.version>1.2.17</log4j.version>
+		<jackson.version>1.9.13</jackson.version>
+
+		<!-- commons系列 -->
+		<commons-logging.version>1.2</commons-logging.version>
 	</properties>
 	<dependencies>
 		<!-- javax.servlet.jsp.jstl,jstl-api,servlet-api,jsp-api -->
@@ -62,22 +74,22 @@
 		<dependency>
 			<groupId>org.hibernate.common</groupId>
 			<artifactId>hibernate-commons-annotations</artifactId>
-			<version>4.0.4.Final</version>
+			<version>${hibernate-common-annotations.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
-			<version>4.3.0.Final</version>
+			<version>${hibernate.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-c3p0</artifactId>
-			<version>4.3.0.Final</version>
+			<version>${hibernate.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-ehcache</artifactId>
-			<version>4.3.0.Final</version>
+			<version>${hibernate.version}</version>
 		</dependency>
 		<!-- hibernate核心包结束 -->
 
@@ -85,28 +97,34 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.38</version>
+			<version>${mysql-connector-java}</version>
 		</dependency>
+		<!-- JSON begin -->
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-core-asl</artifactId>
-			<version>1.9.13</version>
+			<version>${jackson.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-asl</artifactId>
-			<version>1.9.13</version>
+			<version>${jackson.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.7.21</version>
-		</dependency>
+		<!-- JSON end -->
+
+		<!-- log4j -->
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
-			<version>1.2.17</version>
+			<version>${log4j.version}</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/commons-logging/commons-logging -->
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>${commons-logging.version}</version>
+		</dependency>
+		<!-- 数据库底层包 -->
 		<dependency>
 			<groupId>com.lemon</groupId>
 			<artifactId>lemon-base</artifactId>
