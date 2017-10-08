@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
+import com.lemon.base.util.PageBean;
+
 public interface IBaseHqlDao<T extends Object> extends Serializable {
 	/**
 	 * 在数据库保存一个新的实体对象
@@ -40,5 +42,15 @@ public interface IBaseHqlDao<T extends Object> extends Serializable {
      * @return
      */
     public  T getByHQL(String hql, Map<String, Object> params);
+    
+    /**
+     * 按属性查找对象列表
+     * @param propertyName 属性名称
+     * @param value 属性值
+     * @return 对象list
+     */
+    public List<T> getByProperty(String propertyName,Object value);
+    
+    public PageBean getPageList(final String hql, int limit, int offset);
 
 }

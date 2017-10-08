@@ -3,19 +3,23 @@ package com.lemon.base.dao.impl;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.util.Assert;
 
 import com.lemon.base.dao.IBaseHqlDao;
 import com.lemon.base.dao.IBaseSqlDao;
 import com.lemon.base.util.HibernateUtil;
+import com.lemon.base.util.PageBean;
 import com.lemon.base.util.ReflectUtil;
 import com.lemon.base.util.UUIDHelper;
 
@@ -90,4 +94,46 @@ public abstract class BaseDao<T> implements IBaseHqlDao<T>,IBaseSqlDao{
 		}
 		return (T) query.uniqueResult();
 	}
+	@Override
+	public List<T> getByProperty(String propertyName, Object value) {
+		Assert.hasText(propertyName, "propertyName不能为空。");
+		Criterion criterion = Restrictions.eq(propertyName, value);
+		return find(criterion);
+	}
+	
+	@Override
+	public PageBean getPageList(String hql, int limit, int offset) {
+		Query query = getSession().createQuery(hql);
+		int count = query.list().size();//0;//((Long) query.iterate().next()).intValue();
+		query.setMaxResults(limit);
+		query.setFirstResult(offset);
+		List<T> list = query.list();
+		PageBean pb = new PageBean(offset, limit, count, list);
+		return pb;
+	}
+	
+	/****************************hibernate tool method**************************************/
+	
+	/**
+	 * 根据Criterion条件创建Criteria. 与find()函数可进行更加灵活的操作. 
+	 * @param criterions 数量可变的Criterion
+	 * @return
+	 * 参考：http://blog.csdn.net/u013433821/article/details/48731367
+	 */
+	public Criteria createCriteria(final Criterion... criterions) {  
+        Criteria criteria = getSession().createCriteria(entityClass);  
+        for (Criterion c : criterions) {  
+                criteria.add(c);  
+        }  
+        return criteria;
+    }
+	/**
+	 * 按Criteria查询对象列表
+	 * @param criterions 数量可变的Criterion
+	 * @return
+	 */
+	public List<T> find(final Criterion... criterions) {  
+        return createCriteria(criterions).list();
+    }
+	
 }

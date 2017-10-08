@@ -16,9 +16,33 @@
             <ul class="nav" id="side-menu">
                 <li class="nav-header">
                     <div class="dropdown profile-element">
+                        <%--dangzhenghui begin 20170502 for 增加添加头像功能--%>
                                 <span><img alt="image" width="180" height="61" src="${ctx }/static/img/jeecg-aceplus.png" /></span>
+                            <%--dangzhenghui end 20170502 for 增加添加头像功能--%>
+                            <%--//update-start--Author: chenj Date:20160726 for: TASK #1207 [改造]h+风格下，去掉logo下面的内容，迁移位置到右上角，主题位置
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <span class="clear">
+                                <span class="block m-t-xs"><strong class="font-bold">${userName }</strong></span>
+                                <span class="text-muted text-xs block">${roleName }<b class="caret"></b></span>
+                                </span>
+                        </a> 
+                        <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                            <li>
+                                <a href="javascript:add('<t:mutiLang langKey="common.change.password"/>','userController.do?changepassword','',550,200)">
+                                    <t:mutiLang langKey="common.change.password"/>
+                                </a>
+                            </li>
+                            <li><a href="javascript:openwindow('<t:mutiLang langKey="common.profile"/>','userController.do?userinfo')"><t:mutiLang langKey="common.profile"/></a></li>
+                            <li><a href="javascript:openwindow('<t:mutiLang langKey="common.ssms.getSysInfos"/>','tSSmsController.do?getSysInfos')"><t:mutiLang langKey="common.ssms.getSysInfos"/></a></li>
+                            <li><a href="javascript:add('<t:mutiLang langKey="common.change.style"/>','userController.do?changestyle','',550,250)"><t:mutiLang langKey="common.my.style"/></a></li>
+                            <li><a href="javascript:clearLocalstorage()"><t:mutiLang langKey="common.clear.localstorage"/></a></li>
+                            <li><a href="http://yun.jeecg.org" target="_blank">云应用中心</li>
+                            <li class="divider"></li>
+                            <li><a href="javascript:logout()">注销</a></li>
+                        </ul>
+                         //update-end--Author: chenj Date:20160726 for: TASK #1207 [改造]h+风格下，去掉logo下面的内容，迁移位置到右上角，主题位置 --%>
                     </div>
-                    <div class="logo-element">LEMON
+                    <div class="logo-element">JEECG
                     </div>
                 </li>
 
@@ -42,13 +66,10 @@
                             <li>
                                 <a class="J_menuItem" href="index_v4.html">主页示例四</a>
                             </li>
-                            <li>
-                                <a href="index_v5.html" target="_blank">主页示例五</a>
-                            </li>
                         </ul>
 
                     </li>
-
+                    ${sysMenu }
             </ul>
         </div>
     </nav>
@@ -60,7 +81,7 @@
                 <div class="navbar-header" style="height: 60px;"><a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
                     <form role="search" class="navbar-form-custom" method="post" action="search_results.html">
                         <div class="form-group">
-                            <input type="text" placeholder="请输入要在站内搜索的内容 …" class="form-control" name="top-search" id="top-search">
+                            <input type="text" placeholder="欢迎使用Jeecg快速开发平台 …" class="form-control" name="top-search" id="top-search">
                         </div>
                     </form>
                 </div>
@@ -125,16 +146,16 @@
                                 <span >管理员<b class="caret"></b></span>
                         </a>
                         <ul class="dropdown-menu dropdown-alerts">
-                            <li>
-                                <a href="javascript:;">
-                                    hehe
-                                </a>
-                            </li>
-                            <li><a href="javascript:;"/></a></li>
+                            <li><a href="javascript:toJeecgYun()">云应用中心</a></li>
+                            <!-- update-start--Author: chenj Date:20160812 for: TASK #1269 【ace h+】风格无用的右上角功能隐藏，暂时注释掉 -->
+                            <!-- <li><a href="http://yun.jeecg.org" target="_blank">云应用中心</li> -->
                            <!--  <li class="divider"></li>
                             <li><a href="javascript:logout()">注销</a></li> -->
+                            <!-- update-end--Author: chenj Date:20160812 for: TASK #1269 【ace h+】风格无用的右上角功能隐藏，暂时注释掉 -->
                         </ul>
-                    </li>                    
+                    </li>
+                    <!-- //update-end--Author: chenj Date:20160726 for: TASK #1207 [改造]h+风格下，去掉logo下面的内容，迁移位置到右上角，主题位置 -->
+                    
                      
                     <li class="dropdown hidden-xs">
                         <a class="right-sidebar-toggle" aria-expanded="false">
@@ -154,7 +175,7 @@
             </button>
             <nav class="page-tabs J_menuTabs">
                 <div class="page-tabs-content">
-                    <a href="javascript:;" class="active J_menuTab" data-id="http://www.baidu.com">首页</a>
+                    <a href="javascript:;" class="active J_menuTab" data-id="test">首页</a>
                 </div>
             <button class="roll-nav roll-right J_tabRight"><i class="fa fa-forward"></i>
             </button>
@@ -172,6 +193,10 @@
                     </li>
                 </ul>
             </div>
+            
+            <!-- 
+            <a href="javascript:logout()" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
+             -->
         </div>
         <!-- update-begin--Author:zhoujf  Date:20170710 for：TASK #2003 【UI改进】列表加载慢的时候会出现白板  -->
         <style type="text/css">  
@@ -182,12 +207,15 @@
 		</style> 
         <div class="row J_mainContent" id="content-main" style="margin-left:-13px;">
             <div class="proccess" id="panelloadingDiv"><b>&nbsp;</b></div> 
-            <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="loginController.do?hplushome" frameborder="0" data-id="loginController.do?hplushome" seamless></iframe>
+            <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="test" frameborder="0" data-id="test" seamless></iframe>
         </div>
+        <!-- update-end--Author:zhoujf  Date:20170710 for：TASK #2003 【UI改进】列表加载慢的时候会出现白板  -->
+        <!-- update-begin--Author:xuelin  Date:20170611 for：TASK #2100 【列表样式美化】【样式专题】Jeecg平台任务 --1下面这条线，变明朗点--------------------  -->
         <div class="footer" style="border-top:none;">
-            <div class="pull-right">&copy; <t:mutiLang langKey="system.version.number"/> <a href="#" target="_blank">lemon-project</a>
+            <div class="pull-right">&copy; <t:mutiLang langKey="system.version.number"/> <a href="http://www.jeecg.org/" target="_blank">jeecg</a>
             </div>
         </div>        
+		<!-- update-end--Author:xuelin  Date:20170611 for：TASK #2100 【列表样式美化】【样式专题】Jeecg平台任务 --1下面这条线，变明朗点----------------------  -->
     </div>
     <!--右侧部分结束-->
     <!--右侧边栏开始-->
@@ -429,7 +457,7 @@
 <!--右键菜单-->
 <script type="text/javascript" src="${ctx }/static/js/jquery-smartMenu.js"></script>
 <script type="text/javascript" src="${ctx }/static/js/contabs.js"></script>
-<%-- <t:base type="tools"></t:base> --%>
+<!-- <t:base type="tools"></t:base> -->
 <!-- 第三方插件 -->
 <script src="${ctx }/static/js/plugins/pace/pace.min.js"></script>
 <!-- Sweet alert -->
@@ -482,10 +510,13 @@
         //bootbox.alert( "浏览器缓存清除成功!");
         layer.msg("浏览器缓存清除成功!");
     }
+    function toJeecgYun(){
+    	window.open("http://yun.jeecg.org","_blank");
+    }
 
     $(document).ready(function(){
-        //加载公告
-/*         var url = "noticeController.do?getNoticeList";
+       /*  //加载公告
+        var url = "noticeController.do?getNoticeList";
         jQuery.ajax({
             url:url,
             type:"GET",
@@ -525,11 +556,11 @@
                     $("#noticeFooter").html(noticeSeeAll);
                 }
             }
-        }); */
+        });
 
 
         //加载消息
-/*         var url = "tSSmsController.do?getMessageList";
+        var url = "tSSmsController.do?getMessageList";
         $.ajax({
             url:url,
             type:"GET",
@@ -609,7 +640,7 @@
         $('.theme-popover').slideDown(200);
     }
 
-/*     function readMessage(){
+    function readMessage(){
         var msgId = $("#msgId").val();
         var url = "tSSmsController.do?readMessage";
         $.ajax({
@@ -626,7 +657,7 @@
                 }
             }
         });
-    } */
+    }
 
     //个人信息弹出层回缩
     function frameBodyClick(){ 
@@ -639,372 +670,4 @@
 
 </script>
 </body>
- <script type="text/javascript">
-
-$(function () {
-	$.ajax({
-        type: "GET", 
-        url: "<%=request.getContextPath()%>/menu/0", 
-        dataType: 'json',
-        contentType: "application/json", 
-        success: function(data){
-                 if(data.menu.level == 0 && data.menu.children.length > 0){
-                 	var menuHtml = buildMenu(data.menu);
-                 	$("#side-menu").append(menuHtml);
-                 	$('#side-menu').metisMenu();
-                 	//通过遍历给菜单项加上data-index属性
-                    $(".J_menuItem").each(function (index) {
-                        if (!$(this).attr('data-index')) {
-                            $(this).attr('data-index', index);
-                        }
-                    });
-                    $('.J_menuItem').on('click', menuItem);
-                 }
-        }, 
-         error: function(data) {
-        	 alert("error"); 
-        } 
-         });
-    //计算元素集合的总宽度
-    function calSumWidth(elements) {
-        var width = 0;
-        $(elements).each(function () {
-            width += $(this).outerWidth(true);
-        });
-        return width;
-    }
-    //滚动到指定选项卡
-    function scrollToTab(element) {
-        var marginLeftVal = calSumWidth($(element).prevAll()), marginRightVal = calSumWidth($(element).nextAll());
-        // 可视区域非tab宽度
-        var tabOuterWidth = calSumWidth($(".content-tabs").children().not(".J_menuTabs"));
-        //可视区域tab宽度
-        var visibleWidth = $(".content-tabs").outerWidth(true) - tabOuterWidth;
-        //实际滚动宽度
-        var scrollVal = 0;
-        if ($(".page-tabs-content").outerWidth() < visibleWidth) {
-            scrollVal = 0;
-        } else if (marginRightVal <= (visibleWidth - $(element).outerWidth(true) - $(element).next().outerWidth(true))) {
-            if ((visibleWidth - $(element).next().outerWidth(true)) > marginRightVal) {
-                scrollVal = marginLeftVal;
-                var tabElement = element;
-                while ((scrollVal - $(tabElement).outerWidth()) > ($(".page-tabs-content").outerWidth() - visibleWidth)) {
-                    scrollVal -= $(tabElement).prev().outerWidth();
-                    tabElement = $(tabElement).prev();
-                }
-            }
-        } else if (marginLeftVal > (visibleWidth - $(element).outerWidth(true) - $(element).prev().outerWidth(true))) {
-            scrollVal = marginLeftVal - $(element).prev().outerWidth(true);
-        }
-        $('.page-tabs-content').animate({
-            marginLeft: 0 - scrollVal + 'px'
-        }, "fast");
-    }
-    //查看左侧隐藏的选项卡
-    function scrollTabLeft() {
-        var marginLeftVal = Math.abs(parseInt($('.page-tabs-content').css('margin-left')));
-        // 可视区域非tab宽度
-        var tabOuterWidth = calSumWidth($(".content-tabs").children().not(".J_menuTabs"));
-        //可视区域tab宽度
-        var visibleWidth = $(".content-tabs").outerWidth(true) - tabOuterWidth;
-        //实际滚动宽度
-        var scrollVal = 0;
-        if ($(".page-tabs-content").width() < visibleWidth) {
-            return false;
-        } else {
-            var tabElement = $(".J_menuTab:first");
-            var offsetVal = 0;
-            while ((offsetVal + $(tabElement).outerWidth(true)) <= marginLeftVal) {//找到离当前tab最近的元素
-                offsetVal += $(tabElement).outerWidth(true);
-                tabElement = $(tabElement).next();
-            }
-            offsetVal = 0;
-            if (calSumWidth($(tabElement).prevAll()) > visibleWidth) {
-                while ((offsetVal + $(tabElement).outerWidth(true)) < (visibleWidth) && tabElement.length > 0) {
-                    offsetVal += $(tabElement).outerWidth(true);
-                    tabElement = $(tabElement).prev();
-                }
-                scrollVal = calSumWidth($(tabElement).prevAll());
-            }
-        }
-        $('.page-tabs-content').animate({
-            marginLeft: 0 - scrollVal + 'px'
-        }, "fast");
-    }
-    //查看右侧隐藏的选项卡
-    function scrollTabRight() {
-        var marginLeftVal = Math.abs(parseInt($('.page-tabs-content').css('margin-left')));
-        // 可视区域非tab宽度
-        var tabOuterWidth = calSumWidth($(".content-tabs").children().not(".J_menuTabs"));
-        //可视区域tab宽度
-        var visibleWidth = $(".content-tabs").outerWidth(true) - tabOuterWidth;
-        //实际滚动宽度
-        var scrollVal = 0;
-        if ($(".page-tabs-content").width() < visibleWidth) {
-            return false;
-        } else {
-            var tabElement = $(".J_menuTab:first");
-            var offsetVal = 0;
-            while ((offsetVal + $(tabElement).outerWidth(true)) <= marginLeftVal) {//找到离当前tab最近的元素
-                offsetVal += $(tabElement).outerWidth(true);
-                tabElement = $(tabElement).next();
-            }
-            offsetVal = 0;
-            while ((offsetVal + $(tabElement).outerWidth(true)) < (visibleWidth) && tabElement.length > 0) {
-                offsetVal += $(tabElement).outerWidth(true);
-                tabElement = $(tabElement).next();
-            }
-            scrollVal = calSumWidth($(tabElement).prevAll());
-            if (scrollVal > 0) {
-                $('.page-tabs-content').animate({
-                    marginLeft: 0 - scrollVal + 'px'
-                }, "fast");
-            }
-        }
-    }
-
-    //通过遍历给菜单项加上data-index属性
-    /*$(".J_menuItem").each(function (index) {
-        if (!$(this).attr('data-index')) {
-            $(this).attr('data-index', index);
-        }
-    });*/
-
-    function menuItem() {
-        // 获取标识数据
-        var dataUrl = $(this).attr('href'),
-            dataIndex = $(this).data('index'),
-            menuName = $.trim($(this).text()),
-            flag = true;
-        if (dataUrl == undefined || $.trim(dataUrl).length == 0)return false;
-
-        // 选项卡菜单已存在
-        $('.J_menuTab').each(function () {
-            if ($(this).data('id') == dataUrl) {
-                if (!$(this).hasClass('active')) {
-                    $(this).addClass('active').siblings('.J_menuTab').removeClass('active');
-                    scrollToTab(this);
-                    // 显示tab对应的内容区
-                    $('.J_mainContent .J_iframe').each(function () {
-                        if ($(this).data('id') == dataUrl) {
-                            $(this).show().siblings('.J_iframe').hide();
-                            return false;
-                        }
-                    });
-                }
-                flag = false;
-                return false;
-            }
-        });
-
-        // 选项卡菜单不存在
-        if (flag) {
-            var str = '<a href="javascript:;" class="active J_menuTab" data-id="' + dataUrl + '">' + menuName + ' <i class="fa fa-times-circle"></i></a>';
-            $('.J_menuTab').removeClass('active');
-
-            // 添加选项卡对应的iframe
-            var str1 = '<iframe class="J_iframe" name="iframe' + dataIndex + '" width="100%" height="100%" src="' + dataUrl + '" frameborder="0" data-id="' + dataUrl + '" seamless></iframe>';
-            $('.J_mainContent').find('iframe.J_iframe').hide().parents('.J_mainContent').append(str1);
-
-            //显示loading提示
-//            var loading = layer.load();
-//
-//            $('.J_mainContent iframe:visible').load(function () {
-//                //iframe加载完成后隐藏loading提示
-//                layer.close(loading);
-//            });
-            // 添加选项卡
-            $('.J_menuTabs .page-tabs-content').append(str);
-            scrollToTab($('.J_menuTab.active'));
-        }
-        return false;
-    }
-
-    //$('.J_menuItem').on('click', menuItem);
-
-    // 关闭选项卡菜单
-    function closeTab() {
-        var closeTabId = $(this).parents('.J_menuTab').data('id');
-        var currentWidth = $(this).parents('.J_menuTab').width();
-
-        // 当前元素处于活动状态
-        if ($(this).parents('.J_menuTab').hasClass('active')) {
-
-            // 当前元素后面有同辈元素，使后面的一个元素处于活动状态
-            if ($(this).parents('.J_menuTab').next('.J_menuTab').size()) {
-
-                var activeId = $(this).parents('.J_menuTab').next('.J_menuTab:eq(0)').data('id');
-                $(this).parents('.J_menuTab').next('.J_menuTab:eq(0)').addClass('active');
-
-                $('.J_mainContent .J_iframe').each(function () {
-                    if ($(this).data('id') == activeId) {
-                        $(this).show().siblings('.J_iframe').hide();
-                        return false;
-                    }
-                });
-
-                var marginLeftVal = parseInt($('.page-tabs-content').css('margin-left'));
-                if (marginLeftVal < 0) {
-                    $('.page-tabs-content').animate({
-                        marginLeft: (marginLeftVal + currentWidth) + 'px'
-                    }, "fast");
-                }
-
-                //  移除当前选项卡
-                $(this).parents('.J_menuTab').remove();
-
-                // 移除tab对应的内容区
-                $('.J_mainContent .J_iframe').each(function () {
-                    if ($(this).data('id') == closeTabId) {
-                        $(this).remove();
-                        return false;
-                    }
-                });
-            }
-
-            // 当前元素后面没有同辈元素，使当前元素的上一个元素处于活动状态
-            if ($(this).parents('.J_menuTab').prev('.J_menuTab').size()) {
-                var activeId = $(this).parents('.J_menuTab').prev('.J_menuTab:last').data('id');
-                $(this).parents('.J_menuTab').prev('.J_menuTab:last').addClass('active');
-                $('.J_mainContent .J_iframe').each(function () {
-                    if ($(this).data('id') == activeId) {
-                        $(this).show().siblings('.J_iframe').hide();
-                        return false;
-                    }
-                });
-
-                //  移除当前选项卡
-                $(this).parents('.J_menuTab').remove();
-
-                // 移除tab对应的内容区
-                $('.J_mainContent .J_iframe').each(function () {
-                    if ($(this).data('id') == closeTabId) {
-                        $(this).remove();
-                        return false;
-                    }
-                });
-            }
-        }
-        // 当前元素不处于活动状态
-        else {
-            //  移除当前选项卡
-            $(this).parents('.J_menuTab').remove();
-
-            // 移除相应tab对应的内容区
-            $('.J_mainContent .J_iframe').each(function () {
-                if ($(this).data('id') == closeTabId) {
-                    $(this).remove();
-                    return false;
-                }
-            });
-            scrollToTab($('.J_menuTab.active'));
-        }
-        return false;
-    }
-
-    $('.J_menuTabs').on('click', '.J_menuTab i', closeTab);
-
-    //关闭其他选项卡
-    function closeOtherTabs(){
-        $('.page-tabs-content').children("[data-id]").not(":first").not(".active").each(function () {
-            $('.J_iframe[data-id="' + $(this).data('id') + '"]').remove();
-            $(this).remove();
-        });
-        $('.page-tabs-content').css("margin-left", "0");
-    }
-    $('.J_tabCloseOther').on('click', closeOtherTabs);
-
-    //滚动到已激活的选项卡
-    function showActiveTab(){
-        scrollToTab($('.J_menuTab.active'));
-    }
-    $('.J_tabShowActive').on('click', showActiveTab);
-
-
-    // 点击选项卡菜单
-    function activeTab() {
-        if (!$(this).hasClass('active')) {
-            var currentId = $(this).data('id');
-            // 显示tab对应的内容区
-            $('.J_mainContent .J_iframe').each(function () {
-                if ($(this).data('id') == currentId) {
-                    $(this).show().siblings('.J_iframe').hide();
-                    return false;
-                }
-            });
-            $(this).addClass('active').siblings('.J_menuTab').removeClass('active');
-            scrollToTab(this);
-        }
-    }
-
-    $('.J_menuTabs').on('click', '.J_menuTab', activeTab);
-
-    //刷新iframe
-    function refreshTab() {
-        var target = $('.J_iframe[data-id="' + $(this).data('id') + '"]');
-        var url = target.attr('src');
-//        //显示loading提示
-//        var loading = layer.load();
-//        target.attr('src', url).load(function () {
-//            //关闭loading提示
-//            layer.close(loading);
-//        });
-    }
-
-    $('.J_menuTabs').on('dblclick', '.J_menuTab', refreshTab);
-
-    // 左移按扭
-    $('.J_tabLeft').on('click', scrollTabLeft);
-
-    // 右移按扭
-    $('.J_tabRight').on('click', scrollTabRight);
-
-    // 关闭全部
-    $('.J_tabCloseAll').on('click', function () {
-        $('.page-tabs-content').children("[data-id]").not(":first").each(function () {
-            $('.J_iframe[data-id="' + $(this).data('id') + '"]').remove();
-            $(this).remove();
-        });
-        $('.page-tabs-content').children("[data-id]:first").each(function () {
-            $('.J_iframe[data-id="' + $(this).data('id') + '"]').show();
-            $(this).addClass("active");
-        });
-        $('.page-tabs-content').css("margin-left", "0");
-    });
-
-});
-var menuHtml = '';
-function buildMenu(menu){
-	if(menu.level == 0 && menu.children.length > 0){//判断是根节点并且有一级菜单
-		for(var i=0;i<menu.children.length;i++){
-			buildMenu(menu.children[i]);
-		}
-		return menuHtml;
-	}else if(menu.level == 1){//判断是一级菜单
-		menuHtml += '<li><a href="#">'
-			 +'<i class="fa fa-sitemap"></i><span class="nav-label">'+menu.name+'</span>'
-			 +'<span class="fa arrow"></span></a>';
-		if(menu.children.length > 0){//一级菜单有二级菜单
-			menuHtml += '<ul class="nav nav-second-level collapse" style="height:0px;">';//为二级菜单提供容器
-			for(var i = 0; i < menu.children.length; i++){
-				buildMenu(menu.children[i]);//递归二级菜单
-			}
-			menuHtml += '</ul>';
-		}
-		menuHtml += '</li>';
-	}else if(menu.level == 2){//判断是二级菜单
-		menuHtml += '<li><a href="'+menu.href+'">'+menu.name+'<span class="fa arrow"></span></a>';
-		if(menu.children.length > 0){
-			menuHtml += '<ul class="nav nav-third-level">';//为三级菜单提供容器
-			for(var i = 0; i < menu.children.length; i++){
-				buildMenu(menu.children[i]);//递归三级级菜单
-			}
-			menuHtml += '</ul>';
-		}
-		menuHtml += '</li>';
-	}else if(menu.level == 3){
-		menuHtml += '<li><a class="J_menuItem" href="'+menu.href+'">'+menu.name+'</a></li>';
-	}
-}
-</script>
 </html>

@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
+import com.lemon.base.util.PageBean;
+
 public interface IBaseService<T extends Object> extends Serializable {
 
 	/**
@@ -34,6 +36,11 @@ public interface IBaseService<T extends Object> extends Serializable {
      * @return 实体对象的数组
      */
     public List<T> getAll();
+    
     public T getByHQL(String hql, Map<String, Object> params);
+    
+    public List<T> getByProperty(String propertyName, Object value);
+    
+    public PageBean getPageList(String hql, int limit, int offset);
 
 }
