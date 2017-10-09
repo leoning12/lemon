@@ -14,9 +14,8 @@
     <meta name="description" content="lemon-framework">
 
 	<!-- CSS文件 -->
-    <link href="${ctx }/static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="${ctx }/static/css/bootstrap.min.css?v=3.3.7" rel="stylesheet">
     <link href="${ctx }/static/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
-    <link rel="stylesheet" href="${ctx }/static/css/font-awesome.min.css" />
     <!--[if IE 7]>
     <link rel="stylesheet" href="plug-in/ace/assets/css/font-awesome-ie7.min.css" />
     <![endif]-->
