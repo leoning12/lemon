@@ -11,15 +11,19 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
 
 import com.lemon.base.dao.IBaseHqlDao;
 import com.lemon.base.dao.IBaseSqlDao;
 import com.lemon.base.util.HibernateUtil;
 import com.lemon.base.util.PageBean;
+import com.lemon.base.util.PageHelper;
+import com.lemon.base.util.PageResult;
 import com.lemon.base.util.ReflectUtil;
 import com.lemon.base.util.UUIDHelper;
 
@@ -102,18 +106,34 @@ public abstract class BaseDao<T> implements IBaseHqlDao<T>,IBaseSqlDao{
 	}
 	
 	@Override
-	public PageBean getPageList(String hql, int limit, int offset) {
+	public PageResult getPageList(String hql,PageHelper pageHelper) {
 		Query query = getSession().createQuery(hql);
-		int count = query.list().size();//0;//((Long) query.iterate().next()).intValue();
-		query.setMaxResults(limit);
-		query.setFirstResult(offset);
+		int count = query.list().size();
+		query.setMaxResults(pageHelper.getLimit());
+		query.setFirstResult(pageHelper.getOffset());
+		if (!StringUtils.isEmpty(pageHelper.getSort())) {
+			hql += " order by "+pageHelper.getSort() + " "+pageHelper.getOrder();
+		}
 		List<T> list = query.list();
-		PageBean pb = new PageBean(offset, limit, count, list);
+		PageResult pb = new PageResult(count, list);
 		return pb;
 	}
 	
+	@Override
+	public PageResult getPageList(Class<T> entityClass,PageHelper pageHelper) {
+		Criteria criteria = getSession().createCriteria(entityClass);
+		int total = criteria.list().size();
+		criteria.setMaxResults(pageHelper.getLimit());
+		criteria.setFirstResult(pageHelper.getOffset());
+		if (pageHelper.getOrder().equals("asc")) {
+			criteria.addOrder(Order.asc(pageHelper.getSort()));
+		}else {
+			criteria.addOrder(Order.desc(pageHelper.getSort()));
+		}
+		List<T> rows = criteria.list();
+		return new PageResult(total, rows);
+	}
 	/****************************hibernate tool method**************************************/
-	
 	/**
 	 * 根据Criterion条件创建Criteria. 与find()函数可进行更加灵活的操作. 
 	 * @param criterions 数量可变的Criterion

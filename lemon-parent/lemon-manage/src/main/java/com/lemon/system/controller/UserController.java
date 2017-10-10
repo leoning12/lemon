@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.lemon.base.util.PageBean;
+import com.lemon.base.util.PageHelper;
+import com.lemon.base.util.PageResult;
+import com.lemon.system.entity.SysUser;
 import com.lemon.system.service.UserService;
 
 @Controller
@@ -25,8 +28,8 @@ public class UserController {
 
 	@RequestMapping(value="list",method=RequestMethod.POST)
 	@ResponseBody
-	public PageBean list(int offset,int limit,String order,ModelMap map,HttpServletRequest request){
-		PageBean pb = userService.getPageList("from SysUser", limit, offset);
+	public PageResult list(PageHelper pageHelper,ModelMap map,HttpServletRequest request){
+		PageResult pb = userService.getPageList(SysUser.class, pageHelper);
 		return pb;
 	}
 }

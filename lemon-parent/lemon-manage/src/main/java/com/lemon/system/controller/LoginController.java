@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.lemon.base.controller.BaseController;
 import com.lemon.base.util.PageBean;
+import com.lemon.base.util.PageResult;
 import com.lemon.system.entity.SysMenu;
 import com.lemon.system.entity.SysUser;
 import com.lemon.system.service.SysMenuService;
@@ -46,7 +47,6 @@ public class LoginController extends BaseController {
 			StringBuilder sb = new StringBuilder();
 			buildMenu(sysMenu, sb);
 			map.put("sysMenu", sb);
-			PageBean pb = userService.getPageList("from SysUser", 5, 0);
 			return "index";
 		}else {
 			return "login";

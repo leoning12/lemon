@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.lemon.base.util.PageBean;
+import com.lemon.base.util.PageHelper;
+import com.lemon.base.util.PageResult;
 
 public interface IBaseHqlDao<T extends Object> extends Serializable {
 	/**
@@ -51,6 +53,8 @@ public interface IBaseHqlDao<T extends Object> extends Serializable {
      */
     public List<T> getByProperty(String propertyName,Object value);
     
-    public PageBean getPageList(final String hql, int limit, int offset);
+    public PageResult getPageList(final String hql, PageHelper pageHelper);
+    
+    public PageResult getPageList(Class<T> entityClass,PageHelper pageHelper);
 
 }

@@ -33,7 +33,7 @@
             striped: true,                      //是否显示行间隔色
             cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
             pagination: true,                   //是否显示分页（*）
-            sortable: false,                     //是否启用排序
+            sortable: true,                     //是否启用排序
             sortOrder: "asc",                   //排序方式
             //queryParams: oTableInit.queryParams,//传递参数（*）
             sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
@@ -56,16 +56,20 @@
                 checkbox: true
             }, {
                 field: 'id',
-                title: '标识'
+                title: '标识',
+                sortable:true
             }, {
                 field: 'loginName',
-                title: '登录名称'
+                title: '登录名称',
+                sortable:true
             }, {
                 field: 'loginPass',
-                title: '登录密码'
+                title: '登录密码',
+                sortable:true
             }, {
                 field: 'userName',
-                title: '姓名'
+                title: '姓名',
+                sortable:true
             }, ]
         });
   	})

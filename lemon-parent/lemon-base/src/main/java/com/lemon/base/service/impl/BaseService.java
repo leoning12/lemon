@@ -11,6 +11,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import com.lemon.base.dao.impl.BaseDao;
 import com.lemon.base.service.IBaseService;
 import com.lemon.base.util.PageBean;
+import com.lemon.base.util.PageHelper;
+import com.lemon.base.util.PageResult;
 
 public abstract class BaseService<T> implements IBaseService<T> {
 	@Autowired
@@ -66,9 +68,16 @@ public abstract class BaseService<T> implements IBaseService<T> {
 	}
 
 	@Override
-	public PageBean getPageList(String hql, int limit, int offset) {
+	public PageResult getPageList(String hql, PageHelper pageHelper) {
 		// TODO Auto-generated method stub
-		return baseDao.getPageList(hql, limit, offset);
+		return baseDao.getPageList(hql, pageHelper);
 	}
+
+	@Override
+	public PageResult getPageList(Class<T> entityClass, PageHelper pageHelper) {
+		// TODO Auto-generated method stub
+		return baseDao.getPageList(entityClass, pageHelper);
+	}
+	
 
 }
