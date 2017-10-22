@@ -125,6 +125,9 @@ public abstract class BaseDao<T> implements IBaseHqlDao<T>,IBaseSqlDao{
 		int total = criteria.list().size();
 		criteria.setMaxResults(pageHelper.getLimit());
 		criteria.setFirstResult(pageHelper.getOffset());
+		if (StringUtils.isEmpty(pageHelper.getSort())) {
+			pageHelper.setSort(HibernateUtil.getEntityPKName(entityClass));
+		}
 		if (pageHelper.getOrder().equals("asc")) {
 			criteria.addOrder(Order.asc(pageHelper.getSort()));
 		}else {

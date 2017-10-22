@@ -11,7 +11,7 @@ public class PageHelper implements Serializable{
 	
 	private int limit;
 	private int offset;
-	private String sort = "id";
+	private String sort;
 	private String order = "asc";
 	
 	public PageHelper() {
