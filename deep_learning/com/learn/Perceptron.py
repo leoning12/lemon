@@ -13,7 +13,7 @@ X = np.array([[1,3,3],
               [1,1,1]])
 
 #标签
-Y = ([1,1,-1])
+Y = np.array([1,1,-1])
 
 #权值初始化，1行3列，取值范围-1到1
 W = (np.random.random(3)-0.5)*2
@@ -56,7 +56,7 @@ d = -W[0]/W[2]
 
 xdata = np.linspace(0,5)
 
-plt.figimage()
+plt.figure()
 plt.plot(xdata,xdata*k+d,'r')
 plt.plot(x1,y1,'bo')
 plt.plot(x2,y2,'yo')
