@@ -2,7 +2,7 @@
 '''
 Created on 2017年10月22日
 
-@author: xunin
+@author: xuning
 '''
 import numpy as np
 import matplotlib.pyplot as plt
@@ -13,7 +13,7 @@ X = np.array([[1,3,3],
               [1,1,1]])
 
 #标签
-Y = ([1,1,-1])
+Y = np.array([1,1,-1])
 
 #权值初始化，1行3列，取值范围-1到1
 W = (np.random.random(3)-0.5)*2
@@ -34,7 +34,7 @@ def update():
     O = np.sign(np.dot(X,W.T))
     W_C = lr*((Y-O.T).dot(X)/int(X.shape[0]))
     W = W + W_C
-for __ in range(100):
+for __ in range(1):
     update()#更新权值
     print(W)#打印当前权值
     print(n)#打印迭代次数
@@ -56,7 +56,7 @@ d = -W[0]/W[2]
 
 xdata = np.linspace(0,5)
 
-plt.figimage()
+plt.figure()
 plt.plot(xdata,xdata*k+d,'r')
 plt.plot(x1,y1,'bo')
 plt.plot(x2,y2,'yo')
